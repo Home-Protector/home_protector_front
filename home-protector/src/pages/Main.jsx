@@ -1,6 +1,7 @@
 import Header from "../common/components/header/Header";
 import Footer from "../common/components/footer/Footer";
 import { Link } from "react-router-dom";
+import tempimg from '../img/tempimg.jpeg'
 
 // 임시
 import { styled } from "styled-components";
@@ -8,47 +9,67 @@ import { colors } from "../common/constants/colors";
 
 const Main = () => {
 	return (
-		<>
+		<div>
 			<Header />
 			<article>
 				{/* 정렬 */}
 				<div>
-					<sortUl>
-						<li>인기순</li>
-						<li>조회순</li>
-						<li>최신순</li>
-					</sortUl>
+					<SortUi>
+						<Sortli><SortButton>인기순 ▽</SortButton></Sortli>
+						<Sortli><SortButton>조회순 ▽</SortButton></Sortli>
+						<Sortli><SortButton>최신순 ▽</SortButton></Sortli>
+					</SortUi>
 				</div>
 				<div>
-					<ul>
-						<li>
-							<Link>
-								<h1>나는 제목</h1>
-								<div>
-									<span>나는 야옹</span>
-									<span>스크랩 50</span>
-									<span>조회 300</span>
-								</div>
-							</Link>
-						</li>
-						<li>
-							<Link>
-								<h1>나는 제목이에용</h1>
-								<div>
-									<span>나는 강아지</span>
-									<span>스크랩 40</span>
-									<span>조회 3000</span>
-								</div>
-							</Link>
-						</li>
-					</ul>
+					<MainUl>
+						<MainLi>
+							<MainLink>
+								<MainLiImg src={tempimg} alt="tempimg"/>
+								<MainTextSpan fontSize='17'>내가 제목</MainTextSpan>
+								<MainTextSpan fontSize='11'>나는 야옹</MainTextSpan>
+								<MainTextSpan fontSize='10'>스크랩 50 ㆍ 조회 300</MainTextSpan>
+							</MainLink>
+						</MainLi>
+						<MainLi>
+							<MainLink>
+								<MainLiImg src={tempimg} alt="tempimg"/>
+								<MainTextSpan fontSize='17'>내가 제목</MainTextSpan>
+								<MainTextSpan fontSize='11'>나는 야옹</MainTextSpan>
+								<MainTextSpan fontSize='10'>스크랩 50 ㆍ 조회 300</MainTextSpan>
+							</MainLink>
+						</MainLi>
+						<MainLi>
+							<MainLink>
+								<MainLiImg src={tempimg} alt="tempimg"/>
+								<MainTextSpan fontSize='17'>내가 제목</MainTextSpan>
+								<MainTextSpan fontSize='11'>나는 야옹</MainTextSpan>
+								<MainTextSpan fontSize='10'>스크랩 50 ㆍ 조회 300</MainTextSpan>
+							</MainLink>
+						</MainLi>
+						<MainLi>
+							<MainLink>
+								<MainLiImg src={tempimg} alt="tempimg"/>
+								<MainTextSpan fontSize='17'>내가 제목</MainTextSpan>
+								<MainTextSpan fontSize='11'>나는 야옹</MainTextSpan>
+								<MainTextSpan fontSize='10'>스크랩 50 ㆍ 조회 300</MainTextSpan>
+							</MainLink>
+						</MainLi>
+						<MainLi>
+							<MainLink>
+								<MainLiImg src={tempimg} alt="tempimg"/>
+								<MainTextSpan fontSize='17'>내가 제목</MainTextSpan>
+								<MainTextSpan fontSize='11'>나는 야옹</MainTextSpan>
+								<MainTextSpan fontSize='10'>스크랩 50 ㆍ 조회 300</MainTextSpan>
+							</MainLink>
+						</MainLi>
+					</MainUl>
 				</div>
 			</article>
 			<aside>
 				<ScrollToTop>▲</ScrollToTop>
 			</aside>
 			<Footer />
-		</>
+		</div>
 	);
 };
 
@@ -69,6 +90,73 @@ const ScrollToTop = styled.div`
 	text-align: center;
 `;
 
-const sortUl = styled.li`
-	/* list-style: none; */
+const SortUi = styled.ul`
+	display: flex;
+	margin-left: 10px;
+	list-style-type: nome;
+`;
+
+const Sortli = styled.li`
+	border: none;
+	list-style-type: none;
+`;
+
+const SortButton = styled.button`
+	background: none;
+	border: none;
+	cursor: pointer;
+`;
+
+const MainUl = styled.ul`
+	list-style-type: none;
+	max-width: 1200px;
+	padding: 0;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	place-items: center;
+	justify-items: center;
+	box-sizing: border-box;
+
+	@media (max-width: 1150px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
+
+const MainLi = styled.li`
+	text-align: center;
+	width: 22rem;
+	height: 22rem;
+
+	@media (max-width: 1150px) {
+    width: 35rem;
+		height: 35rem;
+  }
+
+	@media (max-width: 800px) {
+		width: 30rem;
+		height: 30rem;
+	}
+
+	@media (max-width: 500px) {
+		width: 20rem;
+		height: 20rem;
+	}
+`;
+
+const MainLink = styled(Link)`
+	color: black;
+	text-decoration: none;
+`;
+
+const MainLiImg = styled.img`
+	width: 100%;
+	height: 70%;
+	border-radius: 10px;
+`;
+
+const MainTextSpan= styled.span`
+	display: block;
+	font-size: ${(props) => props.fontSize}px;
 `;
