@@ -1,7 +1,7 @@
-import React from "react";
+import * as S from "./style";
 
 const Footer = () => {
-	return <div>© homeprotector. All Rights Reserved</div>;
+	return <S.Footer>©homeprotector. All Rights Reserved</S.Footer>;
 };
 
 export default Footer;

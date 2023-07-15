@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../common/components/header/Header";
 import { styled } from "styled-components";
 import { colors } from "../common/constants/colors";
 import { Link } from "react-router-dom";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
 	return (
 		<container>
+			<Header />
 			<StyledH1>Home Protector</StyledH1>
 			<StyledForm>
 				<InputWrapper>

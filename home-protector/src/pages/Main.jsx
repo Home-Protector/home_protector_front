@@ -8,6 +8,8 @@ import { styled } from "styled-components";
 import { colors } from "../common/constants/colors";
 
 const Main = () => {
+
+
 	return (
 		<div>
 			<Header />
