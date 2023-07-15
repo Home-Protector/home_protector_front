@@ -13,7 +13,7 @@ function Router() {
         <Route path='login' element={<Login />} />
         <Route path='signUp' element={<SignUp />}/>
         <Route path='form' element={<Form />} />
-        <Route path='detail/:id' element={<Detail />}/>
+        <Route path='detail' element={<Detail />}/>
       </Routes>
     </BrowserRouter>
   )
