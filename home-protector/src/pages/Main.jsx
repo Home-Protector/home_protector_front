@@ -3,17 +3,17 @@ import Footer from "../common/components/footer/Footer";
 import ScrollToTop from "../common/components/scrollToTop/ScrollToTop";
 import Posts from "../features/main/posts/Posts";
 import SortingOption from "../features/main/sortingOption/SortingOption";
-import * as S from "../common/constants/styles";
+import * as C from "../common/constants/styles";
 
 const Main = () => {
 	return (
-		<S.Container>
+		<C.Container>
 			<Header />
 			<SortingOption />
 			<Posts />
 			<ScrollToTop />
 			<Footer />
-		</S.Container>
+		</C.Container>
 	);
 };
 
