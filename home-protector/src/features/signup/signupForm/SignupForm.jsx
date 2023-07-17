@@ -5,10 +5,10 @@ import { signup } from "../../../api/user/user";
 import useInput from "../../../hooks/useInput";
 
 const SignupForm = () => {
-	const [username, setUsername, handleChangeUsername] = useInput();	// 아이디 (id)
-	const [password, setPassword, handleChangePassword] = useInput();			// 비밀번호 (password)
+	const [username, setUsername, handleChangeUsername] = useInput();		// 아이디 (id)
+	const [password, setPassword, handleChangePassword] = useInput();		// 비밀번호 (password)
 	const [pwConfirm, setPwConfirm, handleChangePwConfirm] = useInput();	// 비밀번호 확인 (password check)
-	const [nickname, setNickname, handleChangeNickname] = useInput();				// 별명 (nickname)
+	const [nickname, setNickname, handleChangeNickname] = useInput();		// 별명 (nickname)
 
 	const queryClient = new QueryClient();
 	const mutation = useMutation(signup, {

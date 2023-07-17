@@ -16,13 +16,17 @@ const Login = () => {
 	// api요청 초기화하고, 성공 또는 실패 시 실행할 콜백함수 정의
 	const mutation = useMutation(login, {
 		onSuccess: (data) => {
-			const accessToken = data.headers.Authorization;
-			// 서버로부터 받은 응답에서 token을 추출하여 localStorage에 저장
-			localStorage.setItem("accessToken", accessToken);
-			// 사용자 데이터 갱신
-			queryClient.invalidateQueries("user");
-			alert("로그인에 성공하였습니다.");
-			navigate("/");
+			//Authorization
+			const accessToken = data.headers;
+			console.log(data)
+			// console.log(accessToken)
+			// // 서버로부터 받은 응답에서 token을 추출하여 localStorage에 저장
+			// localStorage.setItem("accessToken", accessToken);
+
+			// // 사용자 데이터 갱신
+			// queryClient.invalidateQueries("user");
+			// alert("로그인에 성공하였습니다.");
+			// navigate("/");
 		},
 		onError: (error) => {
 			alert("아이디 또는 비밀번호가 틀렸습니다.");
@@ -35,7 +39,7 @@ const Login = () => {
 			alert("로그인 상태에선 해당 페이지에 접근 할 수 없습니다.");
 			navigate(-1); // 이전 페이지로 돌아가기
 		}
-	}, [navigate]);
+	}, []);
 
 	const handleClickLoginBtn = (e) => {
 		e.preventDefault();
