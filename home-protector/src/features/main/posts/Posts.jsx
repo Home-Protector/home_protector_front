@@ -1,6 +1,4 @@
 import * as S from "./style";
-import tempimg from "../../../img/tempimg.jpeg";
-
 // 임시
 
 const Posts = () => {
@@ -11,7 +9,7 @@ const Posts = () => {
 				{Array.from({ length: 30 }, (_, index) => (
 					<S.MainLi key={index}>
 						<S.MainLink>
-							<S.MainLiImg src={tempimg} alt="tempimg" />
+							<S.MainLiImg src="https://source.unsplash.com/random/?Interior" alt="tempimg" />
 							<S.MainTextSpan fontSize="17">내가 제목</S.MainTextSpan>
 							<S.MainTextSpan fontSize="11">나는 야옹</S.MainTextSpan>
 							<S.MainTextSpan fontSize="10">스크랩 50 ㆍ 조회 300</S.MainTextSpan>
