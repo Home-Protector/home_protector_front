@@ -1,20 +1,50 @@
 import * as S from "./style";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { QueryClient, useMutation } from 'react-query';
+import { signup } from "../../../api/user/user";
+import useInput from "../../../hooks/useInput";
 
 const SignupForm = () => {
+	const [username, setUsername, handleChangeUsername] = useInput();	// 아이디 (id)
+	const [password, setPassword, handleChangePassword] = useInput();			// 비밀번호 (password)
+	const [pwConfirm, setPwConfirm, handleChangePwConfirm] = useInput();	// 비밀번호 확인 (password check)
+	const [nickname, setNickname, handleChangeNickname] = useInput();				// 별명 (nickname)
+
+	const queryClient = new QueryClient();
+	const mutation = useMutation(signup, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("user");
+		}
+	});
+	
+	const navigate = useNavigate();
+	const handleSignUpButtonClick = (e) => {
+		e.preventDefault();
+
+		const newUser = {
+			username,
+			password,
+			nickname
+		}
+		mutation.mutate(newUser);
+
+		// 로그인 페이지로 이동
+		navigate('/login');
+	};
+	
 	return (
 		<div>
 			<S.Title>회원가입</S.Title>
-			<S.Form>
+			<S.Form onSubmit={handleSignUpButtonClick}>
 				<S.FormGroup>
 					<S.Label htmlFor="username">아이디</S.Label>
 					<S.Input
 						type="text"
-						id="username"
 						name="username"
 						placeholder="아이디"
 						required
+						value = {username}
+						onChange = {handleChangeUsername}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
@@ -22,31 +52,34 @@ const SignupForm = () => {
 					<p>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
 					<S.Input
 						type="password"
-						id="password"
 						name="password"
 						placeholder="비밀번호"
 						required
+						value = {password}
+						onChange = {handleChangePassword}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
 					<S.Label htmlFor="confirmPassword">비밀번호 확인</S.Label>
 					<S.Input
 						type="password"
-						id="confirmPassword"
 						name="confirmPassword"
 						placeholder="비밀번호 확인"
 						required
+						value = {pwConfirm}
+						onChange = {handleChangePwConfirm}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
 					<S.Label htmlFor="nickname">닉네임</S.Label>
 					<p>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</p>
 					<S.Input
-						type="password"
-						id="confirmPassword"
-						name="confirmPassword"
+						type="text"
+						name="nickname"
 						placeholder="별명 (2~15자)"
 						required
+						value = {nickname}
+						onChange = {handleChangeNickname}
 					/>
 				</S.FormGroup>
 				<S.CheckboxWrapper>
