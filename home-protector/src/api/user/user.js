@@ -15,7 +15,7 @@ export const login = async (user) => {
 };
 
 // 조회
-export const getUsernameById = async (userId) => {
+export const getLikeById = async (userId) => {
 	const response = await axios.get(`${SERVER_URL}/api/user/${userId}`);
 	return response.data.name;
 };
