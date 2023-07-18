@@ -13,7 +13,9 @@ const Posts = () => {
 					query.data.map((post) => (
 						<S.MainLi key={post.id}>
 							<S.MainLink>
-								<S.MainLiImg src={post.imageUrl} alt="thumbnail" />
+								<S.ImgWrapper>
+									<S.MainLiImg src={post.imageUrl} alt="thumbnail" />
+								</S.ImgWrapper>
 								<S.MainTextSpan fontSize="17">{post.title}</S.MainTextSpan>
 								<S.MainTextSpan fontSize="11">{post.user_id}</S.MainTextSpan>
 								<S.MainTextSpan fontSize="10">
