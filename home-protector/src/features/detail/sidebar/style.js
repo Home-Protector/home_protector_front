@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import { colors } from "../../../common/constants/colors";
-import { Link } from "react-router-dom";
 
 const Aside = styled.aside`
 	position: absolute;
 	top: 10px;
-	right: -50px;
+	right: -70px;
 `;
 
 const AsideBtn = styled.button`
@@ -24,6 +22,7 @@ const AsideBtn = styled.button`
 	line-height: 0;
 	box-shadow: 1px 3px 4px 0 rgba(209, 213, 217, 0.2);
 	transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+	cursor: pointer;
 `;
 
 export { Aside, AsideBtn };

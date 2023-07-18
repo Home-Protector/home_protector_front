@@ -23,6 +23,9 @@ const PostInput = () => {
 	const mutation = useMutation(addPost, {
 		onSuccess: () => {
 			queryClient.invalidateQueries("post");
+		},
+		onError: (error) => {
+			alert("게시물 등록에 실패 했습니다. 다시 시도해주세요.");
 		}
 	});
 	const handleClickAddBtn = () => {
