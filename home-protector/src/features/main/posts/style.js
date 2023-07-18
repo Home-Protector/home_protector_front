@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import { colors } from "../common/constants/colors";
+import { colors } from "../../../common/constants/colors";
 import { Link } from "react-router-dom";
 
 const MainUl = styled.ul`
@@ -45,10 +45,18 @@ const MainLink = styled(Link)`
 	text-decoration: none;
 `;
 
-const MainLiImg = styled.img`
+const ImgWrapper = styled.div`
 	width: 100%;
 	height: 70%;
 	border-radius: 10px;
+	background-color: ${colors.liner};
+	overflow: hidden;
+	margin-bottom: 10px;
+`;
+
+const MainLiImg = styled.img`
+	width: 100%;
+	height: 100%;
 `;
 
 const MainTextSpan = styled.span`
@@ -56,4 +64,4 @@ const MainTextSpan = styled.span`
 	font-size: ${(props) => props.fontSize}px;
 `;
 
-export { MainUl, MainLi, MainLiImg, MainLink, MainTextSpan };
+export { MainUl, MainLi, ImgWrapper, MainLiImg, MainLink, MainTextSpan };

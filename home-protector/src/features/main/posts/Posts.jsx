@@ -1,21 +1,29 @@
+import { fetchPosts } from "../../../api/post/post";
 import * as S from "./style";
-// 임시
+import { useQuery } from "react-query";
 
 const Posts = () => {
+	const query = useQuery("posts", fetchPosts);
+	console.log(query);
+
 	return (
 		<div>
 			<S.MainUl>
-				{}
-				{Array.from({ length: 30 }, (_, index) => (
-					<S.MainLi key={index}>
-						<S.MainLink>
-							<S.MainLiImg src="https://source.unsplash.com/random/?Interior" alt="tempimg" />
-							<S.MainTextSpan fontSize="17">내가 제목</S.MainTextSpan>
-							<S.MainTextSpan fontSize="11">나는 야옹</S.MainTextSpan>
-							<S.MainTextSpan fontSize="10">스크랩 50 ㆍ 조회 300</S.MainTextSpan>
-						</S.MainLink>
-					</S.MainLi>
-				))}
+				{!query.isLoading &&
+					query.data.map((post) => (
+						<S.MainLi key={post.id}>
+							<S.MainLink>
+								<S.ImgWrapper>
+									<S.MainLiImg src={post.imageUrl} alt="thumbnail" />
+								</S.ImgWrapper>
+								<S.MainTextSpan fontSize="17">{post.title}</S.MainTextSpan>
+								<S.MainTextSpan fontSize="11">{post.user_id}</S.MainTextSpan>
+								<S.MainTextSpan fontSize="10">
+									좋아요 100ㆍ 조회 {post.view_count}
+								</S.MainTextSpan>
+							</S.MainLink>
+						</S.MainLi>
+					))}
 			</S.MainUl>
 		</div>
 	);
