@@ -10,7 +10,7 @@ const PostInput = () => {
 	const [title, setTitle, handleChangeTitle] = useInput();       // 제목
 	const [content, setContent, handleChangeContent] = useInput(); // 내용
 	
-	const [images, setImages] = useState([]);    // 이미지
+	const [images, setImages] = useState(new FormData());    // 이미지
 	const handleChangeImages = (e) => {
 		const img = e.target.files;
 		let temp = [...images];
@@ -26,17 +26,14 @@ const PostInput = () => {
 		}
 	});
 	const handleClickAddBtn = () => {
-		const newPost = {
-			title,
-			content,
-			images
-		}
-		mutation.mutate(newPost);
+		const formData = new FormData();
+		formData.append("title", title);
+		formData.append("content", content);
+		formData.append("images", images);
+		mutation.mutate(formData);
 
 		navigate(-1); // 등록 완료되면 이전 페이지로 이동
 	};
-
-	console.log(images)
 
 	return (
 		<S.Article>
