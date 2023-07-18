@@ -36,8 +36,7 @@ const SignupForm = () => {
 			}
 			mutation.mutate(newUser);
 
-			// 로그인 페이지로 이동
-			navigate('/login');
+			navigate('/login'); // 로그인 페이지로 이동
 		}
 	};
 	
