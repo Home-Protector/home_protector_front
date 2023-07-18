@@ -1,8 +1,10 @@
 import * as S from "./style";
+
 import { Link, useNavigate } from "react-router-dom";
 import { QueryClient, useMutation } from 'react-query';
 import { signup } from "../../../api/user/user";
 import useInput from "../../../hooks/useInput";
+import Valitator from "../../../common/components/validator/validators";
 
 const SignupForm = () => {
 	const [username, setUsername, handleChangeUsername] = useInput();		// 아이디 (id)
@@ -19,17 +21,24 @@ const SignupForm = () => {
 	
 	const navigate = useNavigate();
 	const handleSignUpButtonClick = (e) => {
-		e.preventDefault();
+		e.preventDefault();	// 페이지 새로 고침 방지
 
-		const newUser = {
-			username,
-			password,
-			nickname
+		let valueDict = {username, password, pwConfirm, nickname}
+		const errorMsg = Valitator(valueDict);
+		if (errorMsg.trim() !== ''){
+			alert(errorMsg);
 		}
-		mutation.mutate(newUser);
+		else {
+			const newUser = {
+				username,
+				password,
+				nickname
+			}
+			mutation.mutate(newUser);
 
-		// 로그인 페이지로 이동
-		navigate('/login');
+			// 로그인 페이지로 이동
+			navigate('/login');
+		}
 	};
 	
 	return (
@@ -41,7 +50,9 @@ const SignupForm = () => {
 					<S.Input
 						type="text"
 						name="username"
-						placeholder="아이디"
+						placeholder="아이디 (2~15자)"
+						minLength="4"
+						maxLength="10"
 						required
 						value = {username}
 						onChange = {handleChangeUsername}
@@ -49,12 +60,14 @@ const SignupForm = () => {
 				</S.FormGroup>
 				<S.FormGroup>
 					<S.Label htmlFor="password">비밀번호</S.Label>
-					<p>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
+					<p>영문, 숫자를 포함한 8자 이상, 15자 이하 비밀번호를 입력해주세요.</p>
 					<S.Input
 						type="password"
 						name="password"
 						placeholder="비밀번호"
 						required
+						minLength="8"
+						maxLength="15"
 						value = {password}
 						onChange = {handleChangePassword}
 					/>
@@ -66,18 +79,22 @@ const SignupForm = () => {
 						name="confirmPassword"
 						placeholder="비밀번호 확인"
 						required
+						minLength="8"
+						maxLength="15"
 						value = {pwConfirm}
 						onChange = {handleChangePwConfirm}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
 					<S.Label htmlFor="nickname">닉네임</S.Label>
-					<p>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</p>
+					<p>다른 유저와 겹치지 않도록 입력해주세요. (2~10자)</p>
 					<S.Input
 						type="text"
 						name="nickname"
-						placeholder="별명 (2~15자)"
+						placeholder="별명 (2~10자)"
 						required
+						minLength="4"
+						maxLength="10"
 						value = {nickname}
 						onChange = {handleChangeNickname}
 					/>

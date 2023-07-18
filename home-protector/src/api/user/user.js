@@ -13,8 +13,3 @@ export const login = async (user) => {
   const response = await axios.post(`${SERVER_URL}/api/user/login`, user)
   return response;
 }
-
-// 로그아웃
-export const logout = async () => {
-  return await axios.post(`${SERVER_URL}/api/user/logout`);
-}

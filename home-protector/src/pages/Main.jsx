@@ -20,7 +20,7 @@ const Main = () => {
 				> Bearer adfadsfa12341324asdfasdfasdf1241adsf12edsfq123r23
 			*/	
 
-		console.log(accessToken);	
+		// console.log(accessToken);	
 	}, [])
 	return (
 		<C.Container>
