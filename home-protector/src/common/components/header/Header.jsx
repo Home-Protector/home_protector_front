@@ -19,15 +19,19 @@ const Header = () => {
 		const infoDict = jwt_decode(accessToken);
 
 		headerDiv = <S.NavWrapper>
-									<S.UserWrapper>{infoDict.nickname} 님</S.UserWrapper>
-									<S.NavBtn onClick={() => {handleClickLogout()}}>로그아웃</S.NavBtn>
-									<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
-								</S.NavWrapper>
+						<S.UserWrapper>{infoDict.nickname} 님</S.UserWrapper>
+						<S.NavBtn onClick={() => {handleClickLogout()}}>로그아웃</S.NavBtn>
+						<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
+					</S.NavWrapper>
 	} else { // 비회원
 		headerDiv = <S.NavWrapper>
 						<S.NavLink to="/login">로그인</S.NavLink>
 						<S.NavLink to="/signup">회원가입</S.NavLink>
-						<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
+						{accessToken ? (
+							<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
+						) : (
+							<S.WritingBtn>글쓰기</S.WritingBtn>
+						)}
 					</S.NavWrapper>
 	}
 
