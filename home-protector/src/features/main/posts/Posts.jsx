@@ -4,13 +4,14 @@ import * as S from "./style";
 import { useQuery } from "react-query";
 
 const Posts = () => {
-	const { data: posts, isLoading, status } = useQuery("posts", fetchPosts);
+	const { data: posts, isLoading, error, status } = useQuery("posts", fetchPosts);
 	console.log(status, isLoading);
 	const { data: userName } = useQuery("userName", () =>
 		Promise.all(posts.map((post) => getUsernameById(post.user_id)))
 	);
 	console.log(userName);
 
+	if (error) return <div>등록된 게시글이 없습니다.{error.message}</div>;
 	return (
 		<div>
 			<S.MainUl>
