@@ -15,8 +15,12 @@ const Login = () => {
 		onSuccess: (data) => {
 			const accessToken = data.headers.authorization;	// 서버에서 발급받은 token 값 가져오기
 
-			localStorage.setItem("accessToken", accessToken); // 서버로부터 받은 응답에서 token을 추출하여 localStorage에 저장
+			if (!accessToken) { // accessToken이 없을 경우 로그인 막기
+				alert("로그인에 실패하였습니다.");
+				return;
+			}
 
+			localStorage.setItem("accessToken", accessToken); // 서버로부터 받은 응답에서 token을 추출하여 localStorage에 저장
 			queryClient.invalidateQueries("user"); // 사용자 데이터 갱신 (갱신 후 최신 데이터를 가져오기 위함 (쿼리 캐시 무효화))
 			alert("로그인에 성공하였습니다.");
 			navigate("/"); // 성공한 경우 main 페이지로 이동
