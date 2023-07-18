@@ -27,7 +27,7 @@ const Login = () => {
 		},
 		onError: (error) => {
 			alert("아이디 또는 비밀번호가 틀렸습니다.");
-		},
+		}
 	});
 
 	const handleClickLoginBtn = (e) => {
@@ -48,8 +48,6 @@ const Login = () => {
 					<input
 						type="text"
 						placeholder="아이디"
-						id="username"
-						name="username"
 						required
 						value={username}
 						onChange={handleChangeUsername}
@@ -57,8 +55,6 @@ const Login = () => {
 					<input
 						type="password"
 						placeholder="비밀번호"
-						id="password"
-						name="password"
 						required
 						value={password}
 						onChange={handleChangePassword}

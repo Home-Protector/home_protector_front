@@ -16,6 +16,9 @@ const SignupForm = () => {
 	const mutation = useMutation(signup, {
 		onSuccess: () => {
 			queryClient.invalidateQueries("user");
+		},
+		onError: (error) => {
+			alert("회원 가입에 실패했습니다. 다시 시도해주세요.");
 		}
 	});
 	
@@ -25,10 +28,10 @@ const SignupForm = () => {
 
 		let valueDict = {username, password, pwConfirm, nickname}
 		const errorMsg = Valitator(valueDict);
-		if (errorMsg.trim() !== ''){
+		if (errorMsg.trim() !== ''){ // 잘못 입력된 값이 있는 경우 에러 메시지 출력
 			alert(errorMsg);
 		}
-		else {
+		else { // 모두 잘 입력된 경우 추가
 			const newUser = {
 				username,
 				password,
