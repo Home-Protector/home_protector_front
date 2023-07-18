@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 
 const Posts = () => {
 	const query = useQuery("posts", fetchPosts);
-	console.log(query);
 
 	return (
 		<div>

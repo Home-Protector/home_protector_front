@@ -7,7 +7,6 @@ function Valitator(valueDict) {
     };
     
     let errorMsg = '';
-    console.log(valueDict)
     // 순서: id, password, pwConfirm, nickname
     const username = valueDict["username"]
     const password = valueDict["password"]

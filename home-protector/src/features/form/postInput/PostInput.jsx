@@ -28,11 +28,13 @@ const PostInput = () => {
 			alert("게시물 등록에 실패 했습니다. 다시 시도해주세요.");
 		}
 	});
+
 	const handleClickAddBtn = () => {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("content", content);
 		formData.append("images", images);
+
 		mutation.mutate(formData);
 
 		navigate(-1); // 등록 완료되면 이전 페이지로 이동
