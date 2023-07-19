@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { colors } from "../../../common/constants/colors";
 export const ContentWrapper = styled.div`
 	min-height: 500px;
 	position: relative;
@@ -12,7 +12,7 @@ export const SpanWrapper = styled.div`
 `;
 
 export const ContentImg = styled.img`
-	width: 100%;
+	width: 90%;
 	height: 100%;
 	object-fit: cover;
 `;
@@ -22,4 +22,10 @@ export const ImgWrapper = styled.div`
 	height: calc(100vh - 500px);
 	min-height: 250px;
 	overflow: hidden;
+`;
+
+export const ContentText = styled.div`
+	min-height: 500px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid ${colors.liner};
 `;
