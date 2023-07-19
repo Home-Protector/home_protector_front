@@ -5,28 +5,27 @@ import * as S from "./style";
 
 const ImgSlider = ({ images }) => {
 	const settings = {
+		customPaging: function (i) {
+			return (
+				<S.PagingAnchor>
+					<S.Paging src={images[i]} alt={`${i + 1}`} />
+				</S.PagingAnchor>
+			);
+		},
 		dots: true,
-		fade: true,
 		dotsClass: "slick-dots slick-thumb",
 		infinite: true,
 		speed: 500,
-		arrows: true,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		autoPlay: true,
-		autoPlayPause: true,
-		autoPlaySpeed: 500,
-		autoPlayHover: true,
 	};
-
-	const imagesToShow = images.slice(1);
 
 	return (
 		<S.SliderWrapper>
 			<Slider {...settings}>
-				{imagesToShow.map((imageUrl, index) => (
+				{images.map((imageUrl, index) => (
 					<S.ImageWrapper key={index}>
-						<img src={imageUrl} alt="content-images" />
+						<img src={imageUrl} alt={`${index + 1}`} />
 					</S.ImageWrapper>
 				))}
 			</Slider>
