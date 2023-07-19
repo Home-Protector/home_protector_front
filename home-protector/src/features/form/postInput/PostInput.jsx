@@ -9,14 +9,6 @@ import { useNavigate } from "react-router-dom";
 const PostInput = () => {
 	const [title, setTitle, handleChangeTitle] = useInput();       // 제목
 	const [content, setContent, handleChangeContent] = useInput(); // 내용
-	
-	const [images, setImages] = useState(new FormData());    // 이미지
-	const handleChangeImages = (e) => {
-		const img = e.target.files;
-		let temp = [...images];
-		temp.push(img);
-		setImages(temp);
-	};
 
 	const navigate = useNavigate();
 	const queryClient = new QueryClient();
@@ -29,11 +21,26 @@ const PostInput = () => {
 		}
 	});
 
+	const [images, setImages] = useState([]); // 선택한 이미지 목록
+	const handleFileChange = (event) => {
+		const fileList = event.target.files;
+		const imageList = [...images]; // 이전에 선택한 이미지 목록 복사
+	
+		imageList.push(fileList);
+		setImages(imageList);
+	};
+
 	const handleClickAddBtn = () => {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("content", content);
-		formData.append("images", images);
+
+		let temps = [];
+		for (let i = 0; i < images.length; i++) {
+			console.log(images[i][0])
+			temps[i] = images[i][0];
+			formData.append("images", images[i][0]);
+		}
 
 		mutation.mutate(formData);
 
@@ -43,17 +50,19 @@ const PostInput = () => {
 	return (
 		<S.Article>
 			<S.InputDiv>
+
+					{/* <form action="/uploadfiles" method="post" enctype="multipart/form-data" onSubmit={test}>
+						파일명 : <input type="file" name="myfile" multiple="multiple" onChange={() => handleFileChange()}/>
+						<button type="submit">제출하기</button>
+					</form> */}
+
+
 				<S.InputSpan fontSize="18" fontWeight="700">
 					사진을 추가해주세요.
 				</S.InputSpan>
 				<S.InputSpan fontSize="14">최대 10장까지 올릴 수 있어요.</S.InputSpan>
-				<S.Label htmlFor="input-file">PC에서 불러오기</S.Label>
-				<S.Input 
-					type="file" 
-					id="input-file"
-					multiple="multiple"
-					onChange={handleChangeImages}
-				/>
+				<S.Label htmlFor="File">PC에서 불러오기</S.Label>
+				<S.Input type="file" id="File" name="files" multiple="multiple" onChange={handleFileChange}/>
 			</S.InputDiv>
 			<S.Textarea
 				type="text"
