@@ -10,6 +10,8 @@ const Header = styled.header`
 	width: 100%;
 	height: 120px;
 	padding: 20px;
+	margin: 0 auto;
+	max-width: 1280px;
 `;
 
 const TitleLink = styled(Link)`

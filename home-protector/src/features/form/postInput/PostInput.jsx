@@ -3,14 +3,14 @@ import * as S from "./style";
 import { useState } from "react";
 import useInput from "../../../hooks/useInput";
 import { addPost } from "../../../api/post/post";
-import { QueryClient, useMutation } from 'react-query';
+import { QueryClient, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 const PostInput = () => {
-	const [title, setTitle, handleChangeTitle] = useInput();       // 제목
+	const [title, setTitle, handleChangeTitle] = useInput(); // 제목
 	const [content, setContent, handleChangeContent] = useInput(); // 내용
-	
-	const [images, setImages] = useState(new FormData());    // 이미지
+
+	const [images, setImages] = useState(new FormData()); // 이미지
 	const handleChangeImages = (e) => {
 		const img = e.target.files;
 		let temp = [...images];
@@ -26,7 +26,7 @@ const PostInput = () => {
 		},
 		onError: (error) => {
 			alert("게시물 등록에 실패 했습니다. 다시 시도해주세요.");
-		}
+		},
 	});
 
 	const handleClickAddBtn = () => {
@@ -48,8 +48,8 @@ const PostInput = () => {
 				</S.InputSpan>
 				<S.InputSpan fontSize="14">최대 10장까지 올릴 수 있어요.</S.InputSpan>
 				<S.Label htmlFor="input-file">PC에서 불러오기</S.Label>
-				<S.Input 
-					type="file" 
+				<S.Input
+					type="file"
 					id="input-file"
 					multiple="multiple"
 					onChange={handleChangeImages}
@@ -64,10 +64,10 @@ const PostInput = () => {
 				value={title}
 				onChange={handleChangeTitle}
 			/>
-			<S.Textarea 
-				type="text" 
-				height="500" 
-				fontSize="15" 
+			<S.Textarea
+				type="text"
+				height="500"
+				fontSize="15"
 				placeholder="내용을 입력해주세요."
 				value={content}
 				onChange={handleChangeContent}
