@@ -13,9 +13,3 @@ export const login = async (user) => {
 	const response = await axios.post(`${SERVER_URL}/api/user/login`, user);
 	return response;
 };
-
-// 조회
-export const getLikeById = async (userId) => {
-	const response = await axios.get(`${SERVER_URL}/api/user/${userId}`);
-	return response.data.name;
-};
