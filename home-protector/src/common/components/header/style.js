@@ -31,18 +31,27 @@ const NavWrapper = styled.div`
 	& > *:not(:last-child) {
 		margin-right: 15px;
 	}
-`
 
-const UserWrapper= styled.div`
+	@media (max-width: 600px) {
+		flex-direction: column;
+		justify-content: end;
+
+		& > *:not(:last-child) {
+			margin: 0 0 10px;
+		}
+	}
+`;
+
+const UserWrapper = styled.div`
 	display: flex;
 	font-size: 14px;
-`
+`;
 
 const NavLink = styled(Link)`
 	margin-right: 15px;
 	text-decoration: none;
 	color: ${colors.text};
-`
+`;
 
 const SingleLink = styled(Link)`
 	margin-right: 15px;
@@ -79,7 +88,16 @@ const NavBtn = styled.button`
 	color: ${colors.secondary};
 	text-decoration: underline;
 	cursor: pointer;
-	
-`
+`;
 
-export {Header, TitleLink, LogoImg, NavWrapper, UserWrapper, NavLink, WritingBtn, SingleLink, NavBtn}
+export {
+	Header,
+	TitleLink,
+	LogoImg,
+	NavWrapper,
+	UserWrapper,
+	NavLink,
+	WritingBtn,
+	SingleLink,
+	NavBtn,
+};
