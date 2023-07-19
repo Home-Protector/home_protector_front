@@ -20,7 +20,7 @@ const Posts = () => {
 								<S.MainTextSpan fontSize="17">{post.title}</S.MainTextSpan>
 								<S.MainTextSpan fontSize="11">{post.nickname}</S.MainTextSpan>
 								<S.MainTextSpan fontSize="10">
-									좋아요 {post.like}ㆍ 조회 {post.viewCount}
+									좋아요 {post.countLikes}ㆍ 조회 {post.viewCount}
 								</S.MainTextSpan>
 							</S.MainLink>
 						</S.MainLi>
