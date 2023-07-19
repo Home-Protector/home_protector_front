@@ -31,15 +31,15 @@ function PostModify() {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("content", content);
-		console.log(images);
 		if (images) {
 			// 이미지의 경우 필수는 아님
 			for (let i = 0; i < images.length; i++) {
 				formData.append("images", images[i][0]);
 			}
 		}
-		modifyPost({ postId: data.id, editPost: formData });
-		navigate(-1);
+		modifyPost({ postId: data.id, editPost: formData }).then(() => {
+			navigate(-1);
+		});
 	};
 
 	return (
