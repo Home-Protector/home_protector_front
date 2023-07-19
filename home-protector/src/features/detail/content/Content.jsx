@@ -12,8 +12,11 @@ import jwt_decode from "jwt-decode";
 const Content = () => {
 	const { postId } = useParams();
 	const navigate = useNavigate();
-	const { data: post, isLoading, error } = useQuery(["post", postId], () => fetchPost(postId));
 
+	const { data: post, isLoading, error } = useQuery(["post", postId], () => fetchPost(postId), {
+		refetchOnWindowFocus: true, // 윈도우 포커스 시마다 새로운 데이터 가져오기
+	  });
+	
 	if (isLoading) {
 		return <div></div>;
 	}
@@ -51,17 +54,19 @@ const Content = () => {
 				<S.ContentImg src={post.images[0]} alt="postBanner" />
 			</S.ImgWrapper>
 			<C.Wrapper>
-				<C.Span fontSize="21" fontWeight="700">
-					{post.title}
-				</C.Span>
-				{isWriter ? (
-					<div>
-						<button onClick={() => handleClickModifyBtn()}>수정</button>
-						<button onClick={() => handleClickDeleteBtn(postId)}>삭제</button>
-					</div>
-				) : (
-					<></>
-				)}
+				<S.Divrapper>
+					<C.Span fontSize="21" fontWeight="700">
+						{post.title}
+					</C.Span>
+					{isWriter ? (
+						<S.ButtonWrapper>
+							<S.Button onClick={() => handleClickModifyBtn()}>수정</S.Button>
+							<S.Button onClick={() => handleClickDeleteBtn(postId)}>삭제</S.Button>
+						</S.ButtonWrapper>
+						) : (
+							<></>
+						)}
+				</S.Divrapper>
 				<S.SpanWrapper>
 					<C.Span fontSize="14">
 						{post.nickname} ㆍ {formattedCreatedAt}

@@ -24,6 +24,31 @@ export const ImgWrapper = styled.div`
 	overflow: hidden;
 `;
 
+export const Divrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const ButtonWrapper = styled.div`
+	margin-top: 2px;
+	width: 105px;
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const Button = styled.button`
+	width: 50px;
+	height: 30px;
+
+	background-color: ${colors.primary};
+	color: ${colors.background};
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+`;
+
 export const ContentText = styled.div`
 	min-height: 500px;
 	margin-bottom: 10px;
