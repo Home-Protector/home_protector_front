@@ -1,9 +1,14 @@
 import styled from "styled-components";
 // import { colors } from "./colors";
 
-const Container = styled.div`
+const Body = styled.div`
+	width: 100%;
 	box-sizing: border-box;
-	margin: 0 auto;
+`;
+
+const Container = styled.div`
+	margin: 150px auto 0;
+	max-width: 1280px;
 `;
 
 const Wrapper = styled.div`
@@ -21,4 +26,4 @@ const Span = styled.span`
 	font-weight: ${(props) => props.fontWeight};
 `;
 
-export { Container, Wrapper, Span };
+export { Body, Container, Wrapper, Span };

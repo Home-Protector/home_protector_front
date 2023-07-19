@@ -35,13 +35,6 @@ const PostInput = () => {
 		formData.append("title", title);
 		formData.append("content", content);
 
-		let temps = [];
-		for (let i = 0; i < images.length; i++) {
-			console.log(images[i][0])
-			temps[i] = images[i][0];
-			formData.append("images", images[i][0]);
-		}
-    
 		for (let i = 0; i < images.length; i++) {
 			formData.append("images", images[i][0]);
 		}
@@ -51,12 +44,10 @@ const PostInput = () => {
 	return (
 		<S.Article>
 			<S.InputDiv>
-
-					{/* <form action="/uploadfiles" method="post" enctype="multipart/form-data" onSubmit={test}>
+				{/* <form action="/uploadfiles" method="post" enctype="multipart/form-data" onSubmit={test}>
 						파일명 : <input type="file" name="myfile" multiple="multiple" onChange={() => handleFileChange()}/>
 						<button type="submit">제출하기</button>
 					</form> */}
-
 
 				<S.InputSpan fontSize="18" fontWeight="700">
 					사진을 추가해주세요.

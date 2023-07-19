@@ -15,8 +15,18 @@ const Header = () => {
 
 	let headerDiv = "";
 	const navigate = useNavigate();
-	if (accessToken) {
-		// 회원
+	const infoDict = accessToken ? jwt_decode(accessToken) : {};
+	const currentTime = Date.now() / 1000; // 현재 시간
+
+	// 토근이 만료되면 자동 로그아웃
+	if (currentTime > infoDict.exp) {
+		alert("로그인이 만료되었습니다. 다시 로그인 해주시기 바랍니다.");
+		localStorage.clear();
+	}
+
+	if (accessToken && currentTime < infoDict.exp) {
+		// 회원, 토큰이 있고, 만료 시간이 끝나지 않았을 경우
+
 		// token 디코딩하여 저장된 정보 가져오는 내용
 		const infoDict = jwt_decode(accessToken);
 
@@ -45,10 +55,12 @@ const Header = () => {
 
 	return (
 		<S.Header>
-			<S.TitleLink to="/">
-				<S.LogoImg src={logo} alt="logo" />
-			</S.TitleLink>
-			{headerDiv}
+			<S.InnerHeader>
+				<S.TitleLink to="/">
+					<S.LogoImg src={logo} alt="logo" />
+				</S.TitleLink>
+				{headerDiv}
+			</S.InnerHeader>
 		</S.Header>
 	);
 };

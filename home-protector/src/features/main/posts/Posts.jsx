@@ -3,7 +3,7 @@ import * as S from "./style";
 import { useQuery } from "react-query";
 
 const Posts = () => {
-	const { data: posts, isLoading, error, status } = useQuery("posts", fetchPosts);
+	const { data: posts, isLoading, error } = useQuery("posts", fetchPosts);
 
 	if (isLoading) {
 		return <div></div>;

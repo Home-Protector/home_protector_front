@@ -5,11 +5,13 @@ import * as C from "../common/constants/styles";
 
 const Form = () => {
 	return (
-		<C.Container>
+		<C.Body>
 			<Header />
-			<PostInput />
-			<Footer />
-		</C.Container>
+			<C.Container>
+				<PostInput />
+				<Footer />
+			</C.Container>
+		</C.Body>
 	);
 };
 

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Aside = styled.aside`
 	position: absolute;
-	top: 10px;
-	right: -70px;
+	top: 85px;
+	right: -90px;
 `;
 
 const AsideBtn = styled.button`

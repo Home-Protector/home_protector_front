@@ -6,11 +6,13 @@ import Footer from "../common/components/footer/Footer";
 // 회원가입
 const SignUp = () => {
 	return (
-		<C.Container>
+		<C.Body>
 			<Header />
-			<SignupForm />
-			<Footer />
-		</C.Container>
+			<C.Container>
+				<SignupForm />
+				<Footer />
+			</C.Container>
+		</C.Body>
 	);
 };
 

@@ -34,6 +34,7 @@ export const deletePost = async (postId) => {
 	const response = await instance.delete(`/api/post/${postId}`);
 	return response.data;
 };
+
 // 수정
 export const modifyPost = async (payload) => {
 	const postId = payload["postId"];
@@ -42,9 +43,26 @@ export const modifyPost = async (payload) => {
 	return response;
 };
 
+// 좋아요
+export const likePost = async (postId) => {
+	const response = await instance.post(`/api/post/${postId}/like`);
+	return response;
+};
+
 // 댓글 등록
 export const addComment = async (payload) => {
 	const postId = payload["postId"];
 	const newComment = payload["newComment"];
-	await instance.post(`/api/post/${postId}/comment`, newComment);
+	const response = await instance.post(`/api/post/${postId}/comment`, newComment, {
+		headers: { "Content-Type": "application/json" },
+	});
+	return response;
+};
+
+// 댓글 삭제
+export const deleteComment = async (payload) => {
+	const postId = payload["postId"];
+	const commentId = payload["commentId"];
+	const response = await instance.delete(`/api/post/${postId}/comment/${commentId}`);
+	return response;
 };
