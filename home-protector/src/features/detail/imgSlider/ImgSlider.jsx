@@ -3,26 +3,29 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as S from "./style";
 
-const ImgSlider = () => {
+const ImgSlider = ({ images }) => {
 	const settings = {
+		customPaging: function (i) {
+			return (
+				<S.PagingAnchor>
+					<S.Paging src={images[i]} alt={`${i + 1}`} />
+				</S.PagingAnchor>
+			);
+		},
 		dots: true,
-		fade: true,
 		dotsClass: "slick-dots slick-thumb",
 		infinite: true,
 		speed: 500,
-		arrows: true,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 	};
 
-	const imagesContext = require.context("../../../img/temp", false, /\.(png|jpe?g|gif|svg)$/);
-	const images = imagesContext.keys().map(imagesContext);
 	return (
 		<S.SliderWrapper>
 			<Slider {...settings}>
 				{images.map((imageUrl, index) => (
 					<S.ImageWrapper key={index}>
-						<img src={imageUrl} alt="content-images" />
+						<img src={imageUrl} alt={`${index + 1}`} />
 					</S.ImageWrapper>
 				))}
 			</Slider>

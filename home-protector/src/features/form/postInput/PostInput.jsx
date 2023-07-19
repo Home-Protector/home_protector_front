@@ -15,6 +15,7 @@ const PostInput = () => {
 	const mutation = useMutation(addPost, {
 		onSuccess: () => {
 			queryClient.invalidateQueries("post");
+			navigate(-1); // 등록 완료되면 이전 페이지로 이동
 		},
 		onError: (error) => {
 			alert("게시물 등록에 실패 했습니다. 다시 시도해주세요.");
@@ -22,12 +23,11 @@ const PostInput = () => {
 	});
 
 	const [images, setImages] = useState([]); // 선택한 이미지 목록
-	const handleFileChange = (event) => {
-		const fileList = event.target.files;
-		const imageList = [...images]; // 이전에 선택한 이미지 목록 복사
-	
-		imageList.push(fileList);
-		setImages(imageList);
+	const handleChangeImages = (event) => {
+		const img = event.target.files;
+		const temps = [...images]; // 이전에 선택한 이미지 목록 복사
+		temps.push(img);
+		setImages(temps);
 	};
 
 	const handleClickAddBtn = () => {
@@ -41,10 +41,11 @@ const PostInput = () => {
 			temps[i] = images[i][0];
 			formData.append("images", images[i][0]);
 		}
-
+    
+		for (let i = 0; i < images.length; i++) {
+			formData.append("images", images[i][0]);
+		}
 		mutation.mutate(formData);
-
-		navigate(-1); // 등록 완료되면 이전 페이지로 이동
 	};
 
 	return (
@@ -62,8 +63,13 @@ const PostInput = () => {
 				</S.InputSpan>
 				<S.InputSpan fontSize="14">최대 10장까지 올릴 수 있어요.</S.InputSpan>
 				<S.Label htmlFor="File">PC에서 불러오기</S.Label>
-				<S.Input type="file" id="File" name="files" multiple="multiple" onChange={handleFileChange}/>
-
+				<S.Input
+					type="file"
+					id="File"
+					name="files"
+					multiple="multiple"
+					onChange={handleChangeImages}
+				/>
 			</S.InputDiv>
 			<S.Textarea
 				type="text"

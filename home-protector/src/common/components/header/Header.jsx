@@ -3,7 +3,7 @@ import logo from "../../../img/logo.png";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
-const Header = (pageName = "", postId = "") => {
+const Header = () => {
 	const accessToken = localStorage.getItem("accessToken"); // 사용자 토근 (token)
 
 	const handleClickLogout = () => {
@@ -29,11 +29,6 @@ const Header = (pageName = "", postId = "") => {
 					}}>
 					로그아웃
 				</S.NavBtn>
-				{pageName === "detail" ? (
-					<S.WritingBtn to={`/detail/${postId}`}>수정</S.WritingBtn>
-				) : (
-					<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
-				)}
 				<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
 			</S.NavWrapper>
 		);
@@ -43,11 +38,7 @@ const Header = (pageName = "", postId = "") => {
 			<S.NavWrapper>
 				<S.NavLink to="/login">로그인</S.NavLink>
 				<S.NavLink to="/signup">회원가입</S.NavLink>
-				{accessToken ? (
-					<S.WritingBtn to="/form">글쓰기</S.WritingBtn>
-				) : (
-					<S.WritingBtn>글쓰기</S.WritingBtn>
-				)}
+				{accessToken ? <S.WritingBtn to="/form">글쓰기</S.WritingBtn> : <></>}
 			</S.NavWrapper>
 		);
 	}

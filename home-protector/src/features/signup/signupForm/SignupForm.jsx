@@ -1,48 +1,48 @@
 import * as S from "./style";
 
 import { Link, useNavigate } from "react-router-dom";
-import { QueryClient, useMutation } from 'react-query';
+import { QueryClient, useMutation } from "react-query";
 import { signup } from "../../../api/user/user";
 import useInput from "../../../hooks/useInput";
 import Valitator from "../../../common/components/validator/validators";
 
 const SignupForm = () => {
-	const [username, setUsername, handleChangeUsername] = useInput();		// 아이디 (id)
-	const [password, setPassword, handleChangePassword] = useInput();		// 비밀번호 (password)
-	const [pwConfirm, setPwConfirm, handleChangePwConfirm] = useInput();	// 비밀번호 확인 (password check)
-	const [nickname, setNickname, handleChangeNickname] = useInput();		// 별명 (nickname)
+	const [username, setUsername, handleChangeUsername] = useInput(); // 아이디 (id)
+	const [password, setPassword, handleChangePassword] = useInput(); // 비밀번호 (password)
+	const [pwConfirm, setPwConfirm, handleChangePwConfirm] = useInput(); // 비밀번호 확인 (password check)
+	const [nickname, setNickname, handleChangeNickname] = useInput(); // 별명 (nickname)
 
 	const queryClient = new QueryClient();
 	const mutation = useMutation(signup, {
 		onSuccess: () => {
 			queryClient.invalidateQueries("user");
+			navigate("/login"); // 로그인 페이지로 이동
 		},
 		onError: (error) => {
 			alert("회원 가입에 실패했습니다. 다시 시도해주세요.");
-		}
+		},
 	});
-	
+
 	const navigate = useNavigate();
 	const handleSignUpButtonClick = (e) => {
-		e.preventDefault();	// 페이지 새로 고침 방지
+		e.preventDefault(); // 페이지 새로 고침 방지
 
-		let valueDict = {username, password, pwConfirm, nickname}
+		let valueDict = { username, password, pwConfirm, nickname };
 		const errorMsg = Valitator(valueDict);
-		if (errorMsg.trim() !== ''){ // 잘못 입력된 값이 있는 경우 에러 메시지 출력
+		if (errorMsg.trim() !== "") {
+			// 잘못 입력된 값이 있는 경우 에러 메시지 출력
 			alert(errorMsg);
-		}
-		else { // 모두 잘 입력된 경우 추가
+		} else {
+			// 모두 잘 입력된 경우 추가
 			const newUser = {
 				username,
 				password,
-				nickname
-			}
+				nickname,
+			};
 			mutation.mutate(newUser);
-
-			navigate('/login'); // 로그인 페이지로 이동
 		}
 	};
-	
+
 	return (
 		<div>
 			<S.Title>회원가입</S.Title>
@@ -56,8 +56,8 @@ const SignupForm = () => {
 						minLength="4"
 						maxLength="10"
 						required
-						value = {username}
-						onChange = {handleChangeUsername}
+						value={username}
+						onChange={handleChangeUsername}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
@@ -70,8 +70,8 @@ const SignupForm = () => {
 						required
 						minLength="8"
 						maxLength="15"
-						value = {password}
-						onChange = {handleChangePassword}
+						value={password}
+						onChange={handleChangePassword}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
@@ -83,8 +83,8 @@ const SignupForm = () => {
 						required
 						minLength="8"
 						maxLength="15"
-						value = {pwConfirm}
-						onChange = {handleChangePwConfirm}
+						value={pwConfirm}
+						onChange={handleChangePwConfirm}
 					/>
 				</S.FormGroup>
 				<S.FormGroup>
@@ -97,8 +97,8 @@ const SignupForm = () => {
 						required
 						minLength="4"
 						maxLength="10"
-						value = {nickname}
-						onChange = {handleChangeNickname}
+						value={nickname}
+						onChange={handleChangeNickname}
 					/>
 				</S.FormGroup>
 				<S.CheckboxWrapper>
