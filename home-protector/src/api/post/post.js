@@ -16,6 +16,12 @@ export const fetchPosts = async () => {
 	return data;
 };
 
+// 상세
+export const fetchPost = async (postId) => {
+	const response = await instance.get(`/api/post/${postId}`);
+	return response.data;
+};
+
 // 등록
 export const addPost = async (formData) => {
 	await instance.post('/api/post', formData, {
