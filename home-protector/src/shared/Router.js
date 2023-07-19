@@ -15,7 +15,7 @@ function Router() {
 				<Route path="signUp" element={<SignUp />} />
 				<Route path="form" element={<Form />} />
 				<Route path="detail/:postId" element={<Detail />} />
-				<Route path="modify" element={<Modify />} />
+				<Route path="modify/:postId" element={<Modify />} />
 			</Routes>
 		</BrowserRouter>
 	);

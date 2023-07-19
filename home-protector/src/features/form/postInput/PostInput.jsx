@@ -10,34 +10,35 @@ const PostInput = () => {
 	const [title, setTitle, handleChangeTitle] = useInput(); // 제목
 	const [content, setContent, handleChangeContent] = useInput(); // 내용
 
-	const [images, setImages] = useState(new FormData()); // 이미지
-	const handleChangeImages = (e) => {
-		const img = e.target.files;
-		let temp = [...images];
-		temp.push(img);
-		setImages(temp);
-	};
-
 	const navigate = useNavigate();
 	const queryClient = new QueryClient();
 	const mutation = useMutation(addPost, {
 		onSuccess: () => {
 			queryClient.invalidateQueries("post");
+			navigate(-1); // 등록 완료되면 이전 페이지로 이동
 		},
 		onError: (error) => {
 			alert("게시물 등록에 실패 했습니다. 다시 시도해주세요.");
 		},
 	});
 
+	const [images, setImages] = useState([]); // 선택한 이미지 목록
+	const handleChangeImages = (event) => {
+		const img = event.target.files;
+		const temps = [...images]; // 이전에 선택한 이미지 목록 복사
+		temps.push(img);
+		setImages(temps);
+	};
+
 	const handleClickAddBtn = () => {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("content", content);
-		formData.append("images", images);
 
+		for (let i = 0; i < images.length; i++) {
+			formData.append("images", images[i][0]);
+		}
 		mutation.mutate(formData);
-
-		navigate(-1); // 등록 완료되면 이전 페이지로 이동
 	};
 
 	return (
@@ -47,10 +48,11 @@ const PostInput = () => {
 					사진을 추가해주세요.
 				</S.InputSpan>
 				<S.InputSpan fontSize="14">최대 10장까지 올릴 수 있어요.</S.InputSpan>
-				<S.Label htmlFor="input-file">PC에서 불러오기</S.Label>
+				<S.Label htmlFor="File">PC에서 불러오기</S.Label>
 				<S.Input
 					type="file"
-					id="input-file"
+					id="File"
+					name="files"
 					multiple="multiple"
 					onChange={handleChangeImages}
 				/>

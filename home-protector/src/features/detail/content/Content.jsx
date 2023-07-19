@@ -1,22 +1,18 @@
 import * as S from "./style.js";
 import * as C from "../../../common/constants/styles.js";
+
 import Sidebar from "../sidebar/Sidebar";
-import { useQuery } from "react-query";
-import { fetchPost } from "../../../api/post/post.js";
-import { useParams } from "react-router-dom";
 import ImgSlider from "../imgSlider/ImgSlider.jsx";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { fetchPost, deletePost } from "../../../api/post/post.js";
+import { useParams } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const Content = () => {
 	const { postId } = useParams();
-	const {
-		data: post,
-		isLoading,
-		error,
-		status,
-	} = useQuery(["post", postId], () => fetchPost(postId), {
-		refetchOnWindowFocus: true,
-	});
-	console.log(post, isLoading, status);
+	const navigate = useNavigate();
+	const { data: post, isLoading, error } = useQuery(["post", postId], () => fetchPost(postId));
 
 	if (isLoading) {
 		return <div></div>;
@@ -34,6 +30,21 @@ const Content = () => {
 		hour12: false,
 	}).format(new Date(post.createdAt));
 
+	// 현재 로그인된 사용자 정보 확인
+	const accessToken = localStorage.getItem("accessToken"); // 현재 로그인된 사용자 토근 가져옴
+	const infoDict = accessToken ? jwt_decode(accessToken) : {}; // 토큰 디코딩
+	const isWriter = infoDict["username"] == post.nickname ? true : false; // 정보가 일치하면 수정/삭제 권한 줌
+	const handleClickModifyBtn = () => {
+		// 수정
+		navigate(`/modify/${postId}`, { state: post });
+	};
+
+	const handleClickDeleteBtn = (postId) => {
+		// 삭제
+		deletePost(postId);
+		navigate(-1);
+	};
+
 	return (
 		<div>
 			<S.ImgWrapper>
@@ -43,6 +54,14 @@ const Content = () => {
 				<C.Span fontSize="21" fontWeight="700">
 					{post.title}
 				</C.Span>
+				{isWriter ? (
+					<div>
+						<button onClick={() => handleClickModifyBtn()}>수정</button>
+						<button onClick={() => handleClickDeleteBtn(postId)}>삭제</button>
+					</div>
+				) : (
+					<></>
+				)}
 				<S.SpanWrapper>
 					<C.Span fontSize="14">
 						{post.nickname} ㆍ {formattedCreatedAt}
@@ -51,7 +70,7 @@ const Content = () => {
 						좋아요 {post.countLikes} ㆍ 조회 {post.viewCount}
 					</C.Span>
 				</S.SpanWrapper>
-				<ImgSlider />
+				<ImgSlider images={post.images} />
 				<S.ContentText>{post.content}</S.ContentText>
 				<Sidebar />
 			</C.Wrapper>
