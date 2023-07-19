@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { colors } from "../../../common/constants/colors";
 export const ContentWrapper = styled.div`
 	min-height: 500px;
-	position: relative;
 `;
 
 export const SpanWrapper = styled.div`
@@ -24,9 +23,10 @@ export const ImgWrapper = styled.div`
 	overflow: hidden;
 `;
 
-export const Divrapper = styled.div`
+export const DivWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
+	position: relative;
 `;
 
 export const ButtonWrapper = styled.div`

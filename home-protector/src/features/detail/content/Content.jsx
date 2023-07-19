@@ -8,15 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { fetchPost, deletePost } from "../../../api/post/post.js";
 import { useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import CommentInput from "../commentInput/CommentInput.jsx";
+import Comments from "../comments/Comments.jsx";
 
 const Content = () => {
 	const { postId } = useParams();
 	const navigate = useNavigate();
 
-	const { data: post, isLoading, error } = useQuery(["post", postId], () => fetchPost(postId), {
+	const {
+		data: post,
+		isLoading,
+		error,
+	} = useQuery("post", () => fetchPost(postId), {
 		refetchOnWindowFocus: true, // 윈도우 포커스 시마다 새로운 데이터 가져오기
-	  });
-	
+	});
+
 	if (isLoading) {
 		return <div></div>;
 	}
@@ -54,7 +60,7 @@ const Content = () => {
 				<S.ContentImg src={post.images[0]} alt="postBanner" />
 			</S.ImgWrapper>
 			<C.Wrapper>
-				<S.Divrapper>
+				<S.DivWrapper>
 					<C.Span fontSize="21" fontWeight="700">
 						{post.title}
 					</C.Span>
@@ -63,10 +69,11 @@ const Content = () => {
 							<S.Button onClick={() => handleClickModifyBtn()}>수정</S.Button>
 							<S.Button onClick={() => handleClickDeleteBtn(postId)}>삭제</S.Button>
 						</S.ButtonWrapper>
-						) : (
-							<></>
-						)}
-				</S.Divrapper>
+					) : (
+						<></>
+					)}
+					<Sidebar />
+				</S.DivWrapper>
 				<S.SpanWrapper>
 					<C.Span fontSize="14">
 						{post.nickname} ㆍ {formattedCreatedAt}
@@ -77,7 +84,11 @@ const Content = () => {
 				</S.SpanWrapper>
 				<ImgSlider images={post.images} />
 				<S.ContentText>{post.content}</S.ContentText>
-				<Sidebar />
+			</C.Wrapper>
+			<C.Wrapper>
+				<h4 id="commentId">댓글 {post.commentList.length}</h4>
+				{/* <CommentInput /> */}
+				<Comments postId={post.id} comment={post.commentList} />
 			</C.Wrapper>
 		</div>
 	);

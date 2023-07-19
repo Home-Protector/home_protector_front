@@ -4,6 +4,7 @@ import useInput from "../../../hooks/useInput.js";
 import { useParams } from "react-router-dom";
 import { addComment } from "../../../api/post/post.js";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const CommentInput = () => {
 	const [comment, setComment, handleChangeComment] = useInput();
@@ -13,19 +14,20 @@ const CommentInput = () => {
 
 	const queryClient = useQueryClient();
 	const addCommentMutation = useMutation(addComment, {
-		onSuccess: () => {
-			queryClient.invalidateQueries("comment");
+		onSuccess: (data) => {
+			alert("댓글 등록이 완료되었습니다.");
+			queryClient.invalidateQueries("post");
+			setComment("");
 		},
 	});
 
 	const handleCommentSubmit = () => {
 		if (accessToken) {
 			try {
-				addCommentMutation.mutateAsync({
+				addCommentMutation.mutate({
 					postId: postId,
-					newComment: comment,
+					newComment: JSON.stringify({ comment: comment }),
 				});
-				setComment("");
 			} catch (error) {
 				alert("오류가 발생했습니다.");
 			}
@@ -37,16 +39,13 @@ const CommentInput = () => {
 
 	return (
 		<div>
-			<h4 id="commentId">댓글</h4>
-			<div>
-				<S.CommentInput
-					type="text"
-					placeholder="댓글 내용"
-					value={comment}
-					onChange={handleChangeComment}
-				/>
-				<S.CommentInputBtn onClick={handleCommentSubmit}>등록</S.CommentInputBtn>
-			</div>
+			<S.CommentInput
+				type="text"
+				placeholder="댓글 내용"
+				value={comment}
+				onChange={handleChangeComment}
+			/>
+			<S.CommentInputBtn onClick={handleCommentSubmit}>등록</S.CommentInputBtn>
 		</div>
 	);
 };

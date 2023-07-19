@@ -4,13 +4,15 @@ import PostModify from "../features/modify/postmodify/PostModify";
 import Footer from "../common/components/footer/Footer";
 
 function Modify() {
-  return (
-    <C.Container>
-        <Header />
-        <PostModify />
-        <Footer />
-    </C.Container>
-  )
+	return (
+		<C.Body>
+			<Header />
+			<C.Container>
+				<PostModify />
+				<Footer />
+			</C.Container>
+		</C.Body>
+	);
 }
 
 export default Modify;

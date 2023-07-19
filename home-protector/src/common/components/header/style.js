@@ -3,17 +3,23 @@ import { Link } from "react-router-dom";
 import { colors } from "../../constants/colors";
 
 const Header = styled.header`
-	box-sizing: border-box;
+	width: 100%;
+	margin: 0 auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: ${colors.background};
+`;
+
+const InnerHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
-	height: 120px;
-	padding: 20px;
+	height: 110px;
+	max-width: 1500px;
 	margin: 0 auto;
-	max-width: 1280px;
 `;
-
 const TitleLink = styled(Link)`
 	font-size: 40px;
 	font-weight: bold;
@@ -23,7 +29,7 @@ const TitleLink = styled(Link)`
 
 const LogoImg = styled.img`
 	width: 200px;
-	height: 100px;
+	height: 100%;
 `;
 
 const NavWrapper = styled.div`
@@ -102,4 +108,5 @@ export {
 	WritingBtn,
 	SingleLink,
 	NavBtn,
+	InnerHeader,
 };

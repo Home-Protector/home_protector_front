@@ -6,12 +6,14 @@ import ScrollToTop from "../common/components/scrollToTop/ScrollToTop";
 
 const Login = () => {
 	return (
-		<C.Container>
+		<C.Body>
 			<Header />
-			<LoginForm />
-			<ScrollToTop />
-			<Footer />
-		</C.Container>
+			<C.Container>
+				<LoginForm />
+				<ScrollToTop />
+				<Footer />
+			</C.Container>
+		</C.Body>
 	);
 };
 
