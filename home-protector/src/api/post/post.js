@@ -19,9 +19,22 @@ export const fetchPosts = async () => {
 };
 
 // 상세
+export const fetchPost = async (postId) => {
+	const response = await instance.get(`/api/post/${postId}`);
+	return response.data;
+};
 
 // 등록
 export const addPost = async (body) => {
 	const response = await instance.post(`/api/post`, body);
 	return response.data;
+};
+
+// 수정
+export const modifyPost = async (payload) => {
+	const postId = payload["postId"];
+	const editPost = payload["editPost"];
+
+	const response = await instance.put(`/api/post/${postId}`, editPost);
+	return response;
 };

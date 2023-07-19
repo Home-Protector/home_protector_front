@@ -6,12 +6,17 @@ const Posts = () => {
 	const { data: posts, isLoading, error, status } = useQuery("posts", fetchPosts);
 	console.log(status, isLoading);
 
-	if (error) return <div>등록된 게시글이 없습니다.{error.message}</div>;
+	if (isLoading) {
+		return <div></div>;
+	}
+	if (error) {
+		return <div>잠시 후 다시 시도해주세요. </div>;
+	}
 	return (
 		<div>
 			<S.MainUl>
 				{!isLoading &&
-					posts.map((post) => (
+					posts?.map((post) => (
 						<S.MainLi key={post.id}>
 							<S.MainLink to={`/detail/${post.id}`}>
 								<S.ImgWrapper>
