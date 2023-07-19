@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 
 const Posts = () => {
 	const { data: posts, isLoading, error, status } = useQuery("posts", fetchPosts);
-	console.log(status, isLoading);
 
 	if (isLoading) {
 		return <div></div>;

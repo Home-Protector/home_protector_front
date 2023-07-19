@@ -1,9 +1,9 @@
 import * as S from "./style";
 
 import { useNavigate } from "react-router-dom";
+import { modifyPost } from "../../../api/post/post";
 
 function PostModify() {
-
     const navigate = useNavigate();
 
     return (

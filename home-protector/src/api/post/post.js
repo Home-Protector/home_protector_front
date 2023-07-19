@@ -1,5 +1,4 @@
 import axios from "axios";
-// const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const instance = axios.create({
 	baseURL: process.env.REACT_APP_SERVER_URL,
@@ -11,8 +10,7 @@ instance.interceptors.request.use((config) => {
 	return config;
 });
 
-// 조회
-// 전체
+// 전체 조회
 export const fetchPosts = async () => {
 	const { data } = await instance.get(`/api/post`);
 	return data;
@@ -25,9 +23,10 @@ export const fetchPost = async (postId) => {
 };
 
 // 등록
-export const addPost = async (body) => {
-	const response = await instance.post(`/api/post`, body);
-	return response.data;
+export const addPost = async (formData) => {
+	await instance.post('/api/post', formData, {
+		headers: {'Content-Type': 'multipart/form-data'},
+	});
 };
 
 // 수정
