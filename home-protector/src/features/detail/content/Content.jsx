@@ -4,6 +4,7 @@ import Sidebar from "../sidebar/Sidebar";
 import { useQuery } from "react-query";
 import { fetchPost } from "../../../api/post/post.js";
 import { useParams } from "react-router-dom";
+import ImgSlider from "../imgSlider/ImgSlider.jsx";
 
 const Content = () => {
 	const { postId } = useParams();
@@ -50,7 +51,8 @@ const Content = () => {
 						좋아요 {post.countLikes} ㆍ 조회 {post.viewCount}
 					</C.Span>
 				</S.SpanWrapper>
-				<C.Span>{post.content}</C.Span>
+				<ImgSlider />
+				<S.ContentText>{post.content}</S.ContentText>
 				<Sidebar />
 			</C.Wrapper>
 		</div>
