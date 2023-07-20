@@ -34,12 +34,11 @@ const SignupForm = () => {
 			alert(errorMsg);
 		} else {
 			// 모두 잘 입력된 경우 추가
-			const newUser = {
+			mutation.mutate({
 				username,
 				password,
 				nickname,
-			};
-			mutation.mutate(newUser);
+			});
 		}
 	};
 

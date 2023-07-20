@@ -1,5 +1,5 @@
 import * as S from "./style";
-import React from "react";
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { modifyPost } from "../../../api/post/post";
@@ -7,7 +7,7 @@ import useInput from "../../../hooks/useInput";
 
 function PostModify() {
 	const location = useLocation();
-	const data = location.state;
+	const data = location.state; // 게시물 정보 가져오기
 
 	const navigate = useNavigate();
 	if (!data) {
@@ -45,9 +45,7 @@ function PostModify() {
 	return (
 		<S.Article>
 			<S.InputDiv>
-				<S.InputSpan fontSize="18" fontWeight="700">
-					사진을 추가해주세요.
-				</S.InputSpan>
+				<S.InputSpan fontSize="18" fontWeight="700">사진을 추가해주세요.</S.InputSpan>
 				<S.InputSpan fontSize="14">최대 10장까지 올릴 수 있어요.</S.InputSpan>
 				<S.Label htmlFor="File">PC에서 불러오기</S.Label>
 				<S.Input
@@ -77,12 +75,7 @@ function PostModify() {
 			/>
 			<S.ButtonDiv>
 				<S.Button onClick={() => handleClickModifyBtn()}>수정</S.Button>
-				<S.Button
-					onClick={() => {
-						navigate(-1);
-					}}>
-					취소
-				</S.Button>
+				<S.Button onClick={() => navigate(-1)}>취소</S.Button>
 			</S.ButtonDiv>
 		</S.Article>
 	);
