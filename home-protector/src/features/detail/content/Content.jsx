@@ -92,7 +92,7 @@ const Content = () => {
 			</C.Wrapper>
 			<C.Wrapper>
 				<h4 id="commentId">댓글 {post.commentList.length}</h4>
-				<Comments postId={post.id} comment={post.commentList} />
+				<Comments comment={post.commentList}/>
 			</C.Wrapper>
 		</div>
 	);
