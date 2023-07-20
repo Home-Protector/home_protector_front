@@ -18,7 +18,7 @@ const Comments = () => {
 	const navigate = useNavigate();
 
 	// 등록된 댓글 확인
-	const {data: commentList} = useQuery("comment", () => fetchComment(postId), {
+	const { data: commentList } = useQuery("comment", () => fetchComment(postId), {
 		refetchOnWindowFocus: true, // 윈도우 포커스 시마다 새로운 데이터 가져오기
 	});
 
@@ -61,8 +61,8 @@ const Comments = () => {
 		if (event.keyCode === 13) {
 			handleCommentSubmit();
 		}
-	}
-		
+	};
+
 	// 댓글 수정
 	const [isModify, setIsModify] = useInput(false); // 수정 버튼 선택 유무
 	const [seleComment, setSeleComment] = useInput(); // 선택된 댓글 정보를 저장
@@ -71,7 +71,7 @@ const Comments = () => {
 	// 수정을 요청한 댓글 정보를 담는 함수
 	const handleClickModifyBtn = (item) => {
 		setSeleComment(item);
-		setModifyCmt(item.comment)
+		setModifyCmt(item.comment);
 		setIsModify(!isModify);
 	};
 
@@ -82,35 +82,74 @@ const Comments = () => {
 			postId: postId,
 			commentId: seleComment.comment_id,
 			editComment: JSON.stringify({ comment: modifyCmt }),
-		  }).then(
-			setModifyCmt(""),
-			modifyQueryClient.invalidateQueries("comment"),
-		  );
+		}).then(setModifyCmt(""), modifyQueryClient.invalidateQueries("comment"));
 		setIsModify(!isModify);
+	};
+
+	// 시간 포맷 함수
+	const formatCreatedAt = (date) => {
+		return new Intl.DateTimeFormat("ko-KR", {
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+			hour: "2-digit",
+			minute: "2-digit",
+			hour12: false,
+		}).format(new Date(date));
 	};
 
 	return (
 		<div>
 			{isModify ? (
 				<S.CommentWrapper>
-					<S.CommentInput type="text" value={modifyCmt} onChange={handleChangenModifyCmt} />
-					<S.CommentInputBtn onClick={() => handleClickModifyPutBtn()} width="11" height="5">수정</S.CommentInputBtn>
-					<S.CommentInputBtn onClick={() => setIsModify(!isModify)} width="11" height="5">취소</S.CommentInputBtn>
+					<S.CommentInput
+						type="text"
+						value={modifyCmt}
+						onChange={handleChangenModifyCmt}
+					/>
+					<S.CommentInputBtn
+						onClick={() => handleClickModifyPutBtn()}
+						width="11"
+						height="5">
+						수정
+					</S.CommentInputBtn>
+					<S.CommentInputBtn onClick={() => setIsModify(!isModify)} width="11" height="5">
+						취소
+					</S.CommentInputBtn>
 				</S.CommentWrapper>
 			) : (
 				<S.CommentWrapper>
-					<S.CommentInput type="text" placeholder="댓글 내용" value={inputCom} onChange={handleChangenIputCom} onKeyDown={handleKeyDown} />
-					<S.CommentInputBtn onClick={handleCommentSubmit} width="13" height="5">등록</S.CommentInputBtn>
+					<S.CommentInput
+						type="text"
+						placeholder="댓글 내용"
+						value={inputCom}
+						onChange={handleChangenIputCom}
+						onKeyDown={handleKeyDown}
+					/>
+					<S.CommentInputBtn onClick={handleCommentSubmit} width="13" height="5">
+						등록
+					</S.CommentInputBtn>
 					<S.CommentUl>
 						{commentList?.map((item) => {
 							return (
-								<S.CommentLi>
+								<S.CommentLi key={item.comment_id}>
 									<S.CommentDiv>
-										<C.Span fontSize="12">{item.comment_nickname} ㆍ 1시간 전</C.Span>
+										<C.Span fontSize="12">
+											{item.comment_nickname} ㆍ
+											{formatCreatedAt(item.createdAt)}
+										</C.Span>
 										{isToken && username === item.comment_nickname ? (
 											<S.CommentDiv>
-												<S.CommnetButton onClick={() => handleClickModifyBtn(item)}><BsPencil/></S.CommnetButton>
-												<S.CommnetButton onClick={() => handleClickDeleteBtn(item.comment_id)}><BsTrash /></S.CommnetButton>
+												<S.CommnetButton
+													onClick={() => handleClickModifyBtn(item)}>
+													<BsPencil />
+												</S.CommnetButton>
+												<S.CommnetButton
+													onClick={() =>
+														handleClickDeleteBtn(item.comment_id)
+													}>
+													<BsTrash />
+												</S.CommnetButton>
 											</S.CommentDiv>
 										) : (
 											<></>
@@ -118,7 +157,7 @@ const Comments = () => {
 									</S.CommentDiv>
 									<C.Span fontSize="16">{item.comment}</C.Span>
 								</S.CommentLi>
-							)
+							);
 						})}
 					</S.CommentUl>
 				</S.CommentWrapper>
