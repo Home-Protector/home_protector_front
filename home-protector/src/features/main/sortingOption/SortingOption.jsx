@@ -1,4 +1,5 @@
 import * as S from "./style";
+
 const SortingOption = () => {
 	return (
 		<S.SortUi>

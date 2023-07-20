@@ -2,17 +2,16 @@ import * as S from "./style.js";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { likePost } from "../../../api/post/post.js";
-import jwt_decode from "jwt-decode";
+import token from "../../../common/components/token/token.jsx";
 
 const Sidebar = (commentRef) => {
-	const accessToken = localStorage.getItem("accessToken");
-	const infoDict = accessToken ? jwt_decode(accessToken) : {};
+	const [isToken, tokenInfo] = token();
 	const { postId } = useParams();
 
 	// 좋아요
 	const [liked, setLiked] = useState(false);
 	const handleClickLike = () => {
-		if (accessToken) {
+		if (isToken) {
 			try {
 				setLiked(!liked);
 				likePost(postId);

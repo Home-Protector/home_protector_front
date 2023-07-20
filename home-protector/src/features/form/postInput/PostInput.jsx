@@ -32,9 +32,10 @@ const PostInput = () => {
 
 	const handleClickAddBtn = () => {
 		const formData = new FormData();
-		formData.append("title", title);
-		formData.append("content", content);
+		formData.append("title", title); // 제목
+		formData.append("content", content); // 내용
 
+		// 이미지: 이미지 별로 formData에 images라는 key로 저장
 		for (let i = 0; i < images.length; i++) {
 			formData.append("images", images[i][0]);
 		}
@@ -44,14 +45,7 @@ const PostInput = () => {
 	return (
 		<S.Article>
 			<S.InputDiv>
-				{/* <form action="/uploadfiles" method="post" enctype="multipart/form-data" onSubmit={test}>
-						파일명 : <input type="file" name="myfile" multiple="multiple" onChange={() => handleFileChange()}/>
-						<button type="submit">제출하기</button>
-					</form> */}
-
-				<S.InputSpan fontSize="18" fontWeight="700">
-					사진을 추가해주세요.
-				</S.InputSpan>
+				<S.InputSpan fontSize="18" fontWeight="700">사진을 추가해주세요.</S.InputSpan>
 				<S.InputSpan fontSize="14">최대 10장까지 올릴 수 있어요.</S.InputSpan>
 				<S.Label htmlFor="File">PC에서 불러오기</S.Label>
 				<S.Input

@@ -11,7 +11,7 @@ export const SpanWrapper = styled.div`
 `;
 
 export const ContentImg = styled.img`
-	width: 90%;
+	width: 100%;
 	height: 100%;
 	object-fit: cover;
 `;
