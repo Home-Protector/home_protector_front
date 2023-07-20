@@ -8,17 +8,24 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchPost, deletePost } from "../../../api/post/post.js";
 import token from "../../../common/components/token/token.jsx";
+import { useRef } from "react";
 
 const Content = () => {
 	const { postId } = useParams(); // 게시물 ID
 	const navigate = useNavigate();
-
+	const isLikedRef = useRef(null);
 	// useQuery 사용하여 게시물 정보 가져오기
 	const {
 		data: post,
 		isLoading,
 		error,
 	} = useQuery("post", () => fetchPost(postId), {
+		onSuccess: (response) => {
+			console.log(response);
+			// const isLiked = response.headers.get("islike");
+			// console.log(isLiked);
+			// isLikedRef.current = isLiked === "true";
+		},
 		refetchOnWindowFocus: true, // 윈도우 포커스 시마다 새로운 데이터 가져오기
 	});
 
@@ -26,6 +33,7 @@ const Content = () => {
 	if (isLoading) return <div></div>;
 	else if (error) return <div>잠시 후 다시 시도해주세요. </div>;
 
+	// 날짜 표시 형식
 	const formattedCreatedAt = new Intl.DateTimeFormat("ko-KR", {
 		year: "numeric",
 		month: "2-digit",
@@ -43,7 +51,7 @@ const Content = () => {
 	const handleClickModifyBtn = () => {
 		navigate(`/modify/${postId}`, { state: post });
 	};
-	
+
 	// 게시물 삭제
 	const handleClickDeleteBtn = (postId) => {
 		deletePost(postId);
@@ -57,7 +65,9 @@ const Content = () => {
 			</S.ImgWrapper>
 			<C.Wrapper>
 				<S.DivWrapper>
-					<C.Span fontSize="21" fontWeight="700">{post.title}</C.Span>
+					<C.Span fontSize="21" fontWeight="700">
+						{post.title}
+					</C.Span>
 					{isWriter ? (
 						<S.ButtonWrapper>
 							<S.Button onClick={() => handleClickModifyBtn()}>수정</S.Button>
@@ -66,11 +76,16 @@ const Content = () => {
 					) : (
 						<></>
 					)}
-					<Sidebar />
+					<Sidebar postId={postId} like={isLikedRef.current} />
 				</S.DivWrapper>
 				<S.SpanWrapper>
-					<C.Span fontSize="14">{post.nickname} ㆍ {formattedCreatedAt}</C.Span>
-					<C.Span fontSize="14"> 좋아요 {post.countLikes} ㆍ 조회 {post.viewCount} </C.Span>
+					<C.Span fontSize="14">
+						{post.nickname} ㆍ {formattedCreatedAt}
+					</C.Span>
+					<C.Span fontSize="14">
+						{" "}
+						좋아요 {post.countLikes} ㆍ 조회 {post.viewCount}{" "}
+					</C.Span>
 				</S.SpanWrapper>
 				<ImgSlider images={post.images} />
 				<S.ContentText>{post.content}</S.ContentText>
