@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors } from "../../../common/constants/colors";
-import { Link } from "react-router-dom";
 
 // 댓급 입력
 export const CommentInput = styled.input`

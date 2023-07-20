@@ -7,13 +7,17 @@ import { QueryClient, useMutation } from "react-query";
 
 const Sidebar = ({ commentRef, postId, isLiked }) => {
 	const [isToken, tokenInfo] = token();
-	// const isLiked = tokenInfo["username"];
+
 	// 좋아요
 	const [liked, setLiked] = useState(isLiked);
 	console.log(isLiked, liked);
 
 	const queryClient = new QueryClient();
-	const mutation = useMutation(likePost);
+	const mutation = useMutation(likePost, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("post");
+		},
+	});
 
 	const handleClickLike = () => {
 		if (isToken) {
@@ -34,7 +38,7 @@ const Sidebar = ({ commentRef, postId, isLiked }) => {
 			await navigator.clipboard.writeText(text);
 			alert("클립보드에 링크가 복사되었어요.");
 		} catch (err) {
-			console.log(err);
+			alert(err);
 		}
 	};
 
@@ -51,9 +55,7 @@ const Sidebar = ({ commentRef, postId, isLiked }) => {
 
 	return (
 		<S.Aside>
-			<S.AsideBtn liked={liked} onClick={() => handleClickLike()}>
-				{liked ? "❤️" : "🤍"}
-			</S.AsideBtn>
+			<S.AsideBtn liked={liked} onClick={() => handleClickLike()}>{liked ? "❤️" : "🤍"}</S.AsideBtn>
 			<S.AsideBtn onClick={() => handleClickCommentBtn("commentId")}>💬</S.AsideBtn>
 			<S.AsideBtn
 				onClick={() => handleCopyClipBoard(`http://localhost:3000${location.pathname}`)}>

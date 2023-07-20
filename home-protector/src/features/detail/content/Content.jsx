@@ -58,9 +58,7 @@ const Content = () => {
 			</S.ImgWrapper>
 			<C.Wrapper>
 				<S.DivWrapper>
-					<C.Span fontSize="21" fontWeight="700">
-						{post.title}
-					</C.Span>
+					<C.Span fontSize="21" fontWeight="700">{post.title}</C.Span>
 					{isWriter ? (
 						<S.ButtonWrapper>
 							<S.Button onClick={() => handleClickModifyBtn()}>수정</S.Button>
@@ -72,9 +70,7 @@ const Content = () => {
 					<Sidebar postId={postId} isLiked={post.like} />
 				</S.DivWrapper>
 				<S.SpanWrapper>
-					<C.Span fontSize="14">
-						{post.nickname} ㆍ {formattedCreatedAt}
-					</C.Span>
+					<C.Span fontSize="14">{post.nickname} ㆍ {formattedCreatedAt}</C.Span>
 					<C.Span fontSize="14">
 						{" "}
 						좋아요 {post.countLikes} ㆍ 조회 {post.viewCount}{" "}
