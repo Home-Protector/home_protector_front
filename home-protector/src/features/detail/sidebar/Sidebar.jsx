@@ -3,31 +3,30 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { likePost } from "../../../api/post/post.js";
 import token from "../../../common/components/token/token.jsx";
+import { QueryClient, useMutation } from "react-query";
 
-const Sidebar = ({ commentRef, postId }) => {
+const Sidebar = ({ commentRef, postId, isLiked }) => {
 	const [isToken, tokenInfo] = token();
 	// const isLiked = tokenInfo["username"];
 	// 좋아요
-	const [liked, setLiked] = useState(false);
-	// 현재 사용자 좋아요 정보
-	// useEffect(() => {
-	// 	const
-	// })
-	const handleClickLike = async () => {
+	const [liked, setLiked] = useState(isLiked);
+	console.log(isLiked, liked);
+
+	const queryClient = new QueryClient();
+	const mutation = useMutation(likePost);
+
+	const handleClickLike = () => {
 		if (isToken) {
-			try {
-				const response = await likePost(postId);
-				if (response.status === 200) {
-					setLiked((prevLiked) => !prevLiked);
-				} else {
-					alert("오류가 발생했습니다. 다시 시도해주세요.");
-				}
-			} catch (error) {
-				console.log(error);
-				alert("로그인 해주세요.");
-			}
+			setLiked((prevLiked) => !prevLiked);
+			mutation.mutate({
+				postId,
+				liked,
+			});
+		} else {
+			alert("로그인 해주세요.");
 		}
 	};
+
 	// 링크 복사
 	const location = useLocation();
 	const handleCopyClipBoard = async (text) => {

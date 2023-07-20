@@ -8,24 +8,17 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchPost, deletePost } from "../../../api/post/post.js";
 import token from "../../../common/components/token/token.jsx";
-import { useRef } from "react";
 
 const Content = () => {
 	const { postId } = useParams(); // 게시물 ID
 	const navigate = useNavigate();
-	const isLikedRef = useRef(null);
+
 	// useQuery 사용하여 게시물 정보 가져오기
 	const {
 		data: post,
 		isLoading,
 		error,
 	} = useQuery("post", () => fetchPost(postId), {
-		onSuccess: (response) => {
-			console.log(response);
-			// const isLiked = response.headers.get("islike");
-			// console.log(isLiked);
-			// isLikedRef.current = isLiked === "true";
-		},
 		refetchOnWindowFocus: true, // 윈도우 포커스 시마다 새로운 데이터 가져오기
 	});
 
@@ -76,7 +69,7 @@ const Content = () => {
 					) : (
 						<></>
 					)}
-					<Sidebar postId={postId} like={isLikedRef.current} />
+					<Sidebar postId={postId} isLiked={post.like} />
 				</S.DivWrapper>
 				<S.SpanWrapper>
 					<C.Span fontSize="14">

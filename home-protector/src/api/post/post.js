@@ -1,4 +1,5 @@
 import axios from "axios";
+import PostInput from "../../features/form/postInput/PostInput";
 
 const instance = axios.create({
 	baseURL: process.env.REACT_APP_SERVER_URL,
@@ -44,8 +45,10 @@ export const modifyPost = async (payload) => {
 };
 
 // 좋아요
-export const likePost = async (postId) => {
-	const response = await instance.post(`/api/post/${postId}/like`);
+export const likePost = async (payload) => {
+	const postId = payload["postId"];
+	const liked = payload["liked"];
+	const response = await instance.post(`/api/post/${postId}/like`, liked);
 	return response.data;
 };
 
