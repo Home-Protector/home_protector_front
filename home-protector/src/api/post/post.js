@@ -46,7 +46,7 @@ export const modifyPost = async (payload) => {
 // 좋아요
 export const likePost = async (postId) => {
 	const response = await instance.post(`/api/post/${postId}/like`);
-	return response;
+	return response.data;
 };
 
 // 댓글 등록

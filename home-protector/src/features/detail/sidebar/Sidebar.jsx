@@ -1,26 +1,33 @@
 import * as S from "./style.js";
-import { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { likePost } from "../../../api/post/post.js";
 import token from "../../../common/components/token/token.jsx";
 
-const Sidebar = (commentRef) => {
+const Sidebar = ({ commentRef, postId }) => {
 	const [isToken, tokenInfo] = token();
-	const { postId } = useParams();
-
+	// const isLiked = tokenInfo["username"];
 	// 좋아요
 	const [liked, setLiked] = useState(false);
-	const handleClickLike = () => {
+	// 현재 사용자 좋아요 정보
+	// useEffect(() => {
+	// 	const
+	// })
+	const handleClickLike = async () => {
 		if (isToken) {
 			try {
-				setLiked(!liked);
-				likePost(postId);
-			} catch {
-				alert("좋아요를 실패했습니다. 다시 시도해주세요.");
+				const response = await likePost(postId);
+				if (response.status === 200) {
+					setLiked((prevLiked) => !prevLiked);
+				} else {
+					alert("오류가 발생했습니다. 다시 시도해주세요.");
+				}
+			} catch (error) {
+				console.log(error);
+				alert("로그인 해주세요.");
 			}
 		}
 	};
-
 	// 링크 복사
 	const location = useLocation();
 	const handleCopyClipBoard = async (text) => {
