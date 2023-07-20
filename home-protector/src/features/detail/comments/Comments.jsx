@@ -56,14 +56,11 @@ const Comments = () => {
 		}
 	};
 
-	
 	// 인풋창에서 엔터키(키코드 13) 입력 시 댓글 등록
-
 	const handleKeyDown = (event) => {
 		if (event.keyCode === 13) {
 			handleCommentSubmit();
 		}
-
 	}
 		
 	// 댓글 수정
