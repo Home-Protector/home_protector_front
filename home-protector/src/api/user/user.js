@@ -8,12 +8,6 @@ export const signup = async (newUser) => {
 	return response.data;
 };
 
-// 중복 조회
-export const fetchUsername = async (username) => { // username
-	const response = await axios.post(`${SERVER_URL}/api/user/signup/checkusername`, username);
-	return response;
-};
-
 // 로그인
 export const login = async (user) => {
 	const response = await axios.post(`${SERVER_URL}/api/user/login`, user);

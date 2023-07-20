@@ -19,7 +19,7 @@ const SignupForm = () => {
 			navigate("/login"); // 로그인 페이지로 이동
 		},
 		onError: (error) => {
-			alert("회원 가입에 실패했습니다. 다시 시도해주세요.");
+			alert(`회원 가입에 실패했습니다. \n${error.response.data}`);
 		},
 	});
 
