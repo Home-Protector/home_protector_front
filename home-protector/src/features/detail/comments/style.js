@@ -9,8 +9,11 @@ export const CommentInput = styled.input`
 `;
 
 export const CommentInputBtn = styled.button`
-	width: 13%;
-	height: 5vh;
+	width: ${props => props.width}%;
+	height: ${props => props.height}vh;
+
+	/* width: 13%;
+	height: 5vh; */
 
 	margin-left: 5px;
 
@@ -40,7 +43,12 @@ export const CommentDiv = styled.div`
 `;
 
 export const CommnetButton = styled.button`
+	margin-top: 9px;
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
 `;
+
+export const CommentWrapper = styled.div`
+	position: relative;
+`
