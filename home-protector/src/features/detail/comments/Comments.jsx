@@ -56,10 +56,22 @@ const Comments = (payload) => {
 			navigate("/login");
 		}
 	};
+	// 엔터 키(키코드13) 입력 시 댓글 등록
+	const handleKeyDown = (event) => {
+		if (event.keyCode === 13) {
+			handleCommentSubmit();
+		}
+	};
 
 	return (
 		<div>
-			<S.CommentInput type="text" placeholder="댓글 내용" value={inputCom} onChange={handleChangenIputCom}/>
+			<S.CommentInput
+				type="text"
+				placeholder="댓글 내용"
+				value={inputCom}
+				onChange={handleChangenIputCom}
+				onKeyDown={handleKeyDown}
+			/>
 			<S.CommentInputBtn onClick={handleCommentSubmit}>등록</S.CommentInputBtn>
 			<S.CommentUl>
 				{commentList?.map((item) => {
